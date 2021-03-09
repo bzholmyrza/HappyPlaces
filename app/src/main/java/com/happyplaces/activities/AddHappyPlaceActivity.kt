@@ -114,6 +114,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             et_location.setText(mHappyPlaceDetails!!.location)
             mLatitude = mHappyPlaceDetails!!.latitude
             mLongitude = mHappyPlaceDetails!!.longitude
+            et_trip_message.setText(mHappyPlaceDetails!!.message)
 
             saveImageToInternalStorage = Uri.parse(mHappyPlaceDetails!!.image)
 
@@ -209,7 +210,8 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                                 et_date.text.toString(),
                                 et_location.text.toString(),
                                 mLatitude,
-                                mLongitude
+                                mLongitude,
+                                et_trip_message.text.toString()
                         )
 
                         // Here we initialize the database handler class.

@@ -2,19 +2,12 @@ package com.happyplaces.activities
 
 import android.app.SearchManager
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toIcon
-import androidx.core.net.toFile
 import com.happyplaces.R
 import com.happyplaces.models.HappyPlaceModel
 import kotlinx.android.synthetic.main.activity_happy_place_detail.*
-import java.io.ByteArrayOutputStream
 
 class HappyPlaceDetailActivity : AppCompatActivity() {
 
@@ -48,6 +41,7 @@ class HappyPlaceDetailActivity : AppCompatActivity() {
             iv_place_image.setImageURI(Uri.parse(happyPlaceDetailModel.image))
             tv_description.text = happyPlaceDetailModel.description
             tv_location.text = happyPlaceDetailModel.location
+            tv_message.text = happyPlaceDetailModel.message
         }
         btn_view_on_map.setOnClickListener{
             val intent = Intent(this@HappyPlaceDetailActivity, MapsActivity::class.java)
@@ -60,7 +54,15 @@ class HappyPlaceDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
         btn_share.setOnClickListener {
-            
+            val text =  happyPlaceDetailModel!!.message
+            val pictureUri = Uri.parse(happyPlaceDetailModel!!.image.toString())
+            val shareIntent = Intent()
+            shareIntent.action = Intent.ACTION_SEND
+            shareIntent.putExtra(Intent.EXTRA_TEXT, text)
+            shareIntent.putExtra(Intent.EXTRA_STREAM, pictureUri)
+            shareIntent.type = "image/*"
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            startActivity(Intent.createChooser(shareIntent, "Share trip..."))
         }
     }
 }

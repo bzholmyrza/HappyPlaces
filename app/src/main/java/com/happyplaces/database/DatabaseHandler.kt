@@ -26,6 +26,7 @@ class DatabaseHandler(context: Context) :
         private const val KEY_LOCATION = "location"
         private const val KEY_LATITUDE = "latitude"
         private const val KEY_LONGITUDE = "longitude"
+        private const val KEY_MESSAGE = "message"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -38,7 +39,8 @@ class DatabaseHandler(context: Context) :
                 + KEY_DATE + " TEXT,"
                 + KEY_LOCATION + " TEXT,"
                 + KEY_LATITUDE + " TEXT,"
-                + KEY_LONGITUDE + " TEXT)")
+                + KEY_LONGITUDE + " TEXT,"
+                + KEY_MESSAGE + " TEXT)")
         db?.execSQL(CREATE_HAPPY_PLACE_TABLE)
     }
 
@@ -64,6 +66,7 @@ class DatabaseHandler(context: Context) :
         contentValues.put(KEY_LOCATION, happyPlace.location) // HappyPlaceModelClass LOCATION
         contentValues.put(KEY_LATITUDE, happyPlace.latitude) // HappyPlaceModelClass LATITUDE
         contentValues.put(KEY_LONGITUDE, happyPlace.longitude) // HappyPlaceModelClass LONGITUDE
+        contentValues.put(KEY_MESSAGE, happyPlace.message)
 
         // Inserting Row
         val result = db.insert(TABLE_HAPPY_PLACE, null, contentValues)
@@ -97,7 +100,8 @@ class DatabaseHandler(context: Context) :
                             cursor.getString(cursor.getColumnIndex(KEY_DATE)),
                             cursor.getString(cursor.getColumnIndex(KEY_LOCATION)),
                             cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)),
-                            cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE))
+                            cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_MESSAGE))
                     )
                     happyPlaceList.add(place)
 
@@ -127,6 +131,7 @@ class DatabaseHandler(context: Context) :
         contentValues.put(KEY_LOCATION, happyPlace.location) // HappyPlaceModelClass LOCATION
         contentValues.put(KEY_LATITUDE, happyPlace.latitude) // HappyPlaceModelClass LATITUDE
         contentValues.put(KEY_LONGITUDE, happyPlace.longitude) // HappyPlaceModelClass LONGITUDE
+        contentValues.put(KEY_MESSAGE, happyPlace.message)
 
         // Updating Row
         val success =

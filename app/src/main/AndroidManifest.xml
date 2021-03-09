@@ -22,8 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".activities.RegistrationActivity"></activity>
-        <activity android:name=".activities.Firebase" />
+        <activity android:name=".activities.PlacesActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

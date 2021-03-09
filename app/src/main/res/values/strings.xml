@@ -17,8 +17,8 @@
     <string name="btn_text_view_on_map">VIEW ON MAP</string>
     <string name="title_activity_maps">Map</string>
 
-    <string name="create_account">Create Account</string>
-    <string name="account_password">Create a password:</string>
+    <string name="create_account">Login</string>
+    <string name="account_password">Enter password:</string>
     <string name="account_email">Enter email</string>
     <string name="hint_first_name">Enter your first name</string>
     <string name="hint_last_name">Enter your last name</string>
