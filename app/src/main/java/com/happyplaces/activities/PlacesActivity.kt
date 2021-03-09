@@ -43,11 +43,6 @@ class PlacesActivity : AppCompatActivity() {
                 }
             }
 
-        //creating new user
-        /*var email = email_address.text.toString().trim()
-        var password = account_password.text.toString().trim()*/
-
-
         create_account_button.setOnClickListener{view ->
             var email = findViewById<EditText>(R.id.emailID).text.toString().trim()
             var password = findViewById<EditText>(R.id.passwordID).text.toString().trim()
@@ -75,7 +70,7 @@ class PlacesActivity : AppCompatActivity() {
         })
     }
     fun register(email: String, password: String) {
-        val intent = Intent(this, HappyPlaceDetailActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("email", email)
         intent.putExtra("password", password)
         startActivity(intent);
