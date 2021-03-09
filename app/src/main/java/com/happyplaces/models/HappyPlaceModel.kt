@@ -15,5 +15,6 @@ data class HappyPlaceModel(
     val location: String,
     val latitude: Double,
     val longitude: Double,
-    val message: String
+    val message: String,
+    val user_email: String
 ) : Serializable

@@ -27,6 +27,7 @@ class DatabaseHandler(context: Context) :
         private const val KEY_LATITUDE = "latitude"
         private const val KEY_LONGITUDE = "longitude"
         private const val KEY_MESSAGE = "message"
+        private const val KEY_USER_EMAIL = "user_email"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -40,7 +41,8 @@ class DatabaseHandler(context: Context) :
                 + KEY_LOCATION + " TEXT,"
                 + KEY_LATITUDE + " TEXT,"
                 + KEY_LONGITUDE + " TEXT,"
-                + KEY_MESSAGE + " TEXT)")
+                + KEY_MESSAGE + " TEXT,"
+                + KEY_USER_EMAIL + " TEXT)")
         db?.execSQL(CREATE_HAPPY_PLACE_TABLE)
     }
 
@@ -67,6 +69,7 @@ class DatabaseHandler(context: Context) :
         contentValues.put(KEY_LATITUDE, happyPlace.latitude) // HappyPlaceModelClass LATITUDE
         contentValues.put(KEY_LONGITUDE, happyPlace.longitude) // HappyPlaceModelClass LONGITUDE
         contentValues.put(KEY_MESSAGE, happyPlace.message)
+        contentValues.put(KEY_USER_EMAIL, happyPlace.user_email)
 
         // Inserting Row
         val result = db.insert(TABLE_HAPPY_PLACE, null, contentValues)
@@ -79,12 +82,12 @@ class DatabaseHandler(context: Context) :
     /**
      * Function to read all the list of Happy Places data which are inserted.
      */
-    fun getHappyPlacesList(): ArrayList<HappyPlaceModel> {
+    fun getHappyPlacesList(email: String): ArrayList<HappyPlaceModel> {
 
         // A list is initialize using the data model class in which we will add the values from cursor.
         val happyPlaceList: ArrayList<HappyPlaceModel> = ArrayList()
 
-        val selectQuery = "SELECT  * FROM $TABLE_HAPPY_PLACE" // Database select query
+        val selectQuery = "SELECT  * FROM $TABLE_HAPPY_PLACE WHERE $KEY_USER_EMAIL = '$email'" // Database select query
 
         val db = this.readableDatabase
 
@@ -101,7 +104,8 @@ class DatabaseHandler(context: Context) :
                             cursor.getString(cursor.getColumnIndex(KEY_LOCATION)),
                             cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)),
                             cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_MESSAGE))
+                            cursor.getString(cursor.getColumnIndex(KEY_MESSAGE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_USER_EMAIL))
                     )
                     happyPlaceList.add(place)
 

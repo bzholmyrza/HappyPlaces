@@ -211,7 +211,8 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                                 et_location.text.toString(),
                                 mLatitude,
                                 mLongitude,
-                                et_trip_message.text.toString()
+                                et_trip_message.text.toString(),
+                                intent.getStringExtra("email")
                         )
 
                         // Here we initialize the database handler class.

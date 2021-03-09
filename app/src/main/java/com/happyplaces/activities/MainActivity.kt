@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.happyplaces.R
 import com.happyplaces.adapters.HappyPlacesAdapter
 import com.happyplaces.database.DatabaseHandler
@@ -28,12 +29,18 @@ class MainActivity : AppCompatActivity() {
 
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_main)
+        var email = intent.getStringExtra("email")
 
         // Setting an click event for Fab Button and calling the AddHappyPlaceActivity.
         fabAddHappyPlace.setOnClickListener {
             val intent = Intent(this@MainActivity, AddHappyPlaceActivity::class.java)
-
+            intent.putExtra("email", email)
             startActivityForResult(intent, ADD_PLACE_ACTIVITY_REQUEST_CODE)
+        }
+        logout.setOnClickListener {
+            val intent = Intent(this@MainActivity, PlacesActivity::class.java)
+            FirebaseAuth.getInstance().signOut()
+            startActivity(intent)
         }
 
         getHappyPlacesListFromLocalDB()
@@ -60,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         val dbHandler = DatabaseHandler(this)
 
-        val getHappyPlacesList = dbHandler.getHappyPlacesList()
+        val getHappyPlacesList = dbHandler.getHappyPlacesList(intent.getStringExtra("email"))
 
         if (getHappyPlacesList.size > 0) {
             rv_happy_places_list.visibility = View.VISIBLE
